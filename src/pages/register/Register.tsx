@@ -53,6 +53,21 @@ const Register: React.FC<IProps> = ({
     password: string;
   }) => {
     try {
+      Swal.fire({
+        title: "Đang xử lý...",
+        text: "Vui lòng đợi giây lát",
+        customClass: {
+          popup: "custom-swal",
+          title: "custom-title",
+          htmlContainer: "custom-text",
+        },
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
       await axios
         .post(`${process.env.REACT_APP_URL_API}/auth/register`, {
           username: data.username,

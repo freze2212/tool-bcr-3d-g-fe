@@ -19,10 +19,13 @@ const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   if (location.pathname.startsWith("/admin") && role === "USER") {
     return <Navigate to="/" replace />;
   }
+
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
   return (
     <>
-      <VideoBackground />
-      {children}
+      {!isAdminRoute && <VideoBackground />}
+      <div className={isAdminRoute ? "admin-page" : undefined}>{children}</div>
     </>
   );
 };

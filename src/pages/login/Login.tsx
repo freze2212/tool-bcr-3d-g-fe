@@ -108,7 +108,7 @@ const Login: React.FC = () => {
           },
           allowOutsideClick: false,
           showConfirmButton: false,
-          willOpen: () => {
+          didOpen: () => {
             Swal.showLoading();
           },
         });

@@ -21,6 +21,18 @@ code {
   color: white;
 }
 
+/* SweetAlert phải nổi trên CyberModal (z-index: 9999) */
+.swal2-container {
+  z-index: 100010 !important;
+}
+
+.admin-page {
+  min-height: 100vh;
+  background: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
 /* Hack tool loading popup – bỏ nền đen lớn của Swal, chỉ giữ khung neon bên trong */
 .swal2-popup.loading-frame-popup {
   background: transparent !important;
