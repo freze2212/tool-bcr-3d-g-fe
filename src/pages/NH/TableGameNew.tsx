@@ -358,49 +358,45 @@ const TableGameNew = () => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  const makeMinBet = (target: number, lowFactor: number, highFactor: number) => {
-    const min = Math.max(1, Math.round(target * lowFactor));
-    const max = Math.max(min + 1, Math.round(target * highFactor));
-    return randomInRange(min, max);
+  const CAPITAL_MULTIPLIERS = [1.2, 1.6, 2, 2.4, 2.8, 3.6];
+  const MAX_CAPITAL = 40;
+
+  const calcCapital = (target: number, multiplier: number) => {
+    const unit = Math.max(1, target / 20);
+    return Math.min(MAX_CAPITAL, Math.max(1, Math.round(unit * multiplier)));
   };
 
-  // Generate spin options based on target points (sub-linear scale, keep rounds low)
+  // Quay thường (manual) ít vòng hơn; quay to (auto) cao hơn. Vốn theo bậc 1.2 → 3.6, max 40.
   const generateSpinOptions = (target: number) => {
-    const core = Math.max(4, Math.round(Math.sqrt(target) * 0.55 + 3));
+    const core = Math.max(6, Math.round(Math.sqrt(target) * 0.72 + 5));
+    const autoSpinBoost = randomInRange(4, 8);
 
-    function makeOptions(extraSpins = 0) {
-      return [
-        {
-          label: "Ultra Safe",
-          spins: randomInRange(Math.max(2, core - 3), Math.max(3, core - 1)) + extraSpins,
-          min: makeMinBet(target, 0.008, 0.025),
-        },
-        {
-          label: "Safe",
-          spins: randomInRange(Math.max(3, core - 2), core) + extraSpins,
-          min: makeMinBet(target, 0.015, 0.04),
-        },
-        {
-          label: "Balanced",
-          spins: randomInRange(core, core + 2) + extraSpins,
-          min: makeMinBet(target, 0.03, 0.06),
-        },
-        {
-          label: "Aggressive",
-          spins: randomInRange(core + 1, core + 4) + extraSpins,
-          min: makeMinBet(target, 0.05, 0.08),
-        },
-        {
-          label: "All-in",
-          spins: randomInRange(core + 3, core + 7) + extraSpins,
-          min: makeMinBet(target, 0.07, 0.12),
-        },
-      ];
-    }
+    const profiles = [
+      { label: "Ultra Safe", spinMin: -3, spinMax: -1, manualTier: 0, autoTier: 1 },
+      { label: "Safe", spinMin: -1, spinMax: 1, manualTier: 1, autoTier: 2 },
+      { label: "Balanced", spinMin: 0, spinMax: 3, manualTier: 2, autoTier: 3 },
+      { label: "Aggressive", spinMin: 2, spinMax: 6, manualTier: 3, autoTier: 4 },
+      { label: "All-in", spinMin: 5, spinMax: 10, manualTier: 4, autoTier: 5 },
+    ];
+
+    const buildOptions = (mode: "manual" | "auto") =>
+      profiles.map((profile) => {
+        const extraSpins = mode === "auto" ? autoSpinBoost : 0;
+        const tierIndex = mode === "auto" ? profile.autoTier : profile.manualTier;
+
+        return {
+          label: profile.label,
+          spins: randomInRange(
+            Math.max(3, core + profile.spinMin + extraSpins),
+            Math.max(4, core + profile.spinMax + extraSpins),
+          ),
+          min: calcCapital(target, CAPITAL_MULTIPLIERS[tierIndex]),
+        };
+      });
 
     return {
-      manual: makeOptions(),
-      auto: makeOptions(randomInRange(2, 5)),
+      manual: buildOptions("manual"),
+      auto: buildOptions("auto"),
     };
   };
 
@@ -469,7 +465,7 @@ const TableGameNew = () => {
     setShowGifButton(false);
     
     // Sử dụng randomInRange cho số vòng quay
-    const randomRounds = randomInRange(10, 18);
+    const randomRounds = randomInRange(14, 24);
     // Sử dụng randomInRange cho thời gian countdown (10-15 phút)
     const totalSeconds = randomInRange(10 * 60, 15 * 60); // 10-15 phút
     
