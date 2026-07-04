@@ -359,13 +359,22 @@ const TableGameNew = () => {
   };
 
   const CAPITAL_MULTIPLIERS = [1.2, 1.6, 2, 2.4, 2.8, 3.6];
-  const MAX_CAPITAL = 20;
+  const BET_TIERS = [0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8, 3.2, 3.6, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40];
   const MAX_ROUNDS = 50;
 
-  const calcCapital = (target: number, multiplier: number) => {
-    const unit = Math.max(1, target / 50);
-    return Math.min(MAX_CAPITAL, Math.max(1, Math.round(unit * multiplier)));
+  const snapToBetTier = (raw: number) => {
+    const clamped = Math.max(BET_TIERS[0], Math.min(BET_TIERS[BET_TIERS.length - 1], raw));
+    return BET_TIERS.reduce((closest, tier) =>
+      Math.abs(tier - clamped) < Math.abs(closest - clamped) ? tier : closest,
+    );
   };
+
+  const calcCapital = (target: number, multiplier: number) => {
+    const unit = Math.max(0.4, target / 50);
+    return snapToBetTier(unit * multiplier);
+  };
+
+  const formatBetAmount = (amount: number) => `${amount}K`;
 
   const generateSpinOptions = (target: number) => {
     const core = Math.max(10, Math.round(Math.sqrt(target) * 1.0 + 10));
@@ -430,8 +439,6 @@ const TableGameNew = () => {
     const selectedManual = spinOptions.manual[Math.floor(Math.random() * 5)];
     const selectedAuto = spinOptions.auto[Math.floor(Math.random() * 5)];
     
-    const formatBetAmount = (amount: number) => `${amount}K`;
-
     const manualBetFormatted = formatBetAmount(selectedManual.min);
     const autoBetFormatted = formatBetAmount(selectedAuto.min);
     
