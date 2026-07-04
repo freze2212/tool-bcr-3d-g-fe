@@ -430,8 +430,10 @@ const TableGameNew = () => {
     const selectedManual = spinOptions.manual[Math.floor(Math.random() * 5)];
     const selectedAuto = spinOptions.auto[Math.floor(Math.random() * 5)];
     
-    const manualBetFormatted = `${selectedManual.min}`;
-    const autoBetFormatted = `${selectedAuto.min}`;
+    const formatBetAmount = (amount: number) => `${amount}K`;
+
+    const manualBetFormatted = formatBetAmount(selectedManual.min);
+    const autoBetFormatted = formatBetAmount(selectedAuto.min);
     
     setManualValues({ 
       rounds: selectedManual.spins, 
