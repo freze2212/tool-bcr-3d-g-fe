@@ -359,24 +359,24 @@ const TableGameNew = () => {
   };
 
   const CAPITAL_MULTIPLIERS = [1.2, 1.6, 2, 2.4, 2.8, 3.6];
-  const MAX_CAPITAL = 40;
+  const MAX_CAPITAL = 20;
+  const MAX_ROUNDS = 50;
 
   const calcCapital = (target: number, multiplier: number) => {
-    const unit = Math.max(1, target / 20);
+    const unit = Math.max(1, target / 50);
     return Math.min(MAX_CAPITAL, Math.max(1, Math.round(unit * multiplier)));
   };
 
-  // Quay thường (manual) ít vòng hơn; quay to (auto) cao hơn. Vốn theo bậc 1.2 → 3.6, max 40.
   const generateSpinOptions = (target: number) => {
-    const core = Math.max(6, Math.round(Math.sqrt(target) * 0.72 + 5));
-    const autoSpinBoost = randomInRange(4, 8);
+    const core = Math.max(10, Math.round(Math.sqrt(target) * 1.0 + 10));
+    const autoSpinBoost = randomInRange(6, 14);
 
     const profiles = [
-      { label: "Ultra Safe", spinMin: -3, spinMax: -1, manualTier: 0, autoTier: 1 },
-      { label: "Safe", spinMin: -1, spinMax: 1, manualTier: 1, autoTier: 2 },
-      { label: "Balanced", spinMin: 0, spinMax: 3, manualTier: 2, autoTier: 3 },
-      { label: "Aggressive", spinMin: 2, spinMax: 6, manualTier: 3, autoTier: 4 },
-      { label: "All-in", spinMin: 5, spinMax: 10, manualTier: 4, autoTier: 5 },
+      { label: "Ultra Safe", spinMin: -8, spinMax: -3, manualTier: 0, autoTier: 1 },
+      { label: "Safe", spinMin: -4, spinMax: 0, manualTier: 1, autoTier: 2 },
+      { label: "Balanced", spinMin: 0, spinMax: 6, manualTier: 2, autoTier: 3 },
+      { label: "Aggressive", spinMin: 4, spinMax: 12, manualTier: 3, autoTier: 4 },
+      { label: "All-in", spinMin: 10, spinMax: 18, manualTier: 4, autoTier: 5 },
     ];
 
     const buildOptions = (mode: "manual" | "auto") =>
@@ -386,9 +386,12 @@ const TableGameNew = () => {
 
         return {
           label: profile.label,
-          spins: randomInRange(
-            Math.max(3, core + profile.spinMin + extraSpins),
-            Math.max(4, core + profile.spinMax + extraSpins),
+          spins: Math.min(
+            MAX_ROUNDS,
+            randomInRange(
+              Math.max(5, core + profile.spinMin + extraSpins),
+              Math.max(6, core + profile.spinMax + extraSpins),
+            ),
           ),
           min: calcCapital(target, CAPITAL_MULTIPLIERS[tierIndex]),
         };
@@ -427,13 +430,8 @@ const TableGameNew = () => {
     const selectedManual = spinOptions.manual[Math.floor(Math.random() * 5)];
     const selectedAuto = spinOptions.auto[Math.floor(Math.random() * 5)];
     
-    const manualBetFormatted = selectedManual.min >= 1000 ? 
-      `${Math.floor(selectedManual.min / 1000)}K` : 
-      `${selectedManual.min}`;
-    
-    const autoBetFormatted = selectedAuto.min >= 1000 ? 
-      `${Math.floor(selectedAuto.min / 1000)}K` : 
-      `${selectedAuto.min}`;
+    const manualBetFormatted = `${selectedManual.min}`;
+    const autoBetFormatted = `${selectedAuto.min}`;
     
     setManualValues({ 
       rounds: selectedManual.spins, 
@@ -465,7 +463,7 @@ const TableGameNew = () => {
     setShowGifButton(false);
     
     // Sử dụng randomInRange cho số vòng quay
-    const randomRounds = randomInRange(14, 24);
+    const randomRounds = randomInRange(20, 35);
     // Sử dụng randomInRange cho thời gian countdown (10-15 phút)
     const totalSeconds = randomInRange(10 * 60, 15 * 60); // 10-15 phút
     
@@ -844,11 +842,11 @@ const TableGameNew = () => {
                 <div className="flex flex-col gap-1 w-64">
                   <button className="rounded-lg border border-cyan-600/40 bg-black/30 p-2 text-center text-white">
                     <div className="text-xs opacity-80">QUAY MỒI THỦ CÔNG</div>
-                    <div className="text-cyan-300 text-xs">{manualValues.rounds} vòng - min {manualValues.minBet}</div>
+                    <div className="text-cyan-300 text-xs">{manualValues.rounds} vòng - {manualValues.minBet}</div>
                   </button>
                   <button className="rounded-lg border border-cyan-600/40 bg-black/30 p-2 text-center text-white">
                     <div className="text-xs opacity-80">QUAY AUTO</div>
-                    <div className="text-cyan-300 text-xs">{autoValues.rounds} vòng - min {autoValues.minBet}</div>
+                    <div className="text-cyan-300 text-xs">{autoValues.rounds} vòng - {autoValues.minBet}</div>
                   </button>
                 </div>
               </div>
@@ -1090,11 +1088,11 @@ const TableGameNew = () => {
                 <div className="flex flex-col gap-3 w-80">
                   <button className="rounded-lg border border-cyan-600/40 bg-black/30 p-4 text-center text-white">
                     <div className="text-lg opacity-80">QUAY MỒI THỦ CÔNG</div>
-                    <div className="text-cyan-300 text-lg">{manualValues.rounds} vòng - min {manualValues.minBet}</div>
+                    <div className="text-cyan-300 text-lg">{manualValues.rounds} vòng - {manualValues.minBet}</div>
                   </button>
                   <button className="rounded-lg border border-cyan-600/40 bg-black/30 p-4 text-center text-white">
                     <div className="text-lg opacity-80">QUAY AUTO</div>
-                    <div className="text-cyan-300 text-lg">{autoValues.rounds} vòng - min {autoValues.minBet}</div>
+                    <div className="text-cyan-300 text-lg">{autoValues.rounds} vòng - {autoValues.minBet}</div>
                   </button>
                 </div>
               </div>
