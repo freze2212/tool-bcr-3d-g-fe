@@ -1,0 +1,120 @@
+/* Mobile styles for TableGame - chỉ cho <= 430px */
+
+/* Mobile responsive - chỉ áp dụng cho màn hình <= 430px */
+@media (max-width: 430px) {
+    /* Chatbox mobile styles */
+    .chatbox-root {
+        display: flex;
+        width: 100%;
+        bottom: 12px;
+        transform: none;
+        height: auto;
+        max-height: none;
+        margin: 0;
+    }
+    
+    .chatbox-list {
+        margin-top: 54px;
+        max-height: 134px;
+        min-height: 0;
+    }
+
+    .chatbox-input {
+        margin-left: 80px;
+        max-height: 10px;
+        max-width: 260px;
+        margin-top: 12px;
+    }
+    
+    .chat-send {
+        margin-top: 12px;
+        padding: 3px 6px;
+    }
+    
+    /* Wintool mobile styles */
+    .wintoolInner {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 240px;
+        padding: 20px;
+    }
+    
+    .wintoolList {
+        max-height: 140px;
+        margin-top: 66px;
+    }
+    
+    /* Horizontal layout mobile */
+    .horizontalLayoutContainer {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        max-width: 100%;
+        margin: 20px 0 12px;
+    }
+    
+    .wintoolWrapper {
+        width: 100%;
+        margin: 0;
+    }
+    
+    /* User panel mobile */
+    .tableUserPanel {
+        padding: 10px;
+    }
+    
+    .userBox {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .userActions {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    /* Game hall avatar mobile */
+    .gameHallAvatarContainer {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .gameHallAvatarInfo {
+        text-align: center;
+    }
+    
+    .gameHallAvatarStats {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .gameHallAvatarImage {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .mobileGameHallAvatarContainer {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .mobileGameHallAvatarInfo {
+        text-align: center;
+    }
+    
+    .mobileGameHallAvatarStats {
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    /* Megawin container mobile - ẩn để tránh conflict */
+    .megawinContainer {
+        display: none;
+    }
+}

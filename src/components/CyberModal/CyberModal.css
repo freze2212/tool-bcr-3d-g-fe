@@ -1,0 +1,385 @@
+/* ===== Cyber Modal – shared auth popup theme ===== */
+
+.cyber-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.cyber-modal-backdrop.active {
+  display: flex;
+  animation: cyberModalFadeIn 0.3s ease-out;
+}
+
+@keyframes cyberModalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ---- Box ---- */
+.cyber-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 80, 120, 0.25) 0%, transparent 60%),
+    #000b14;
+  padding: 36px 28px 28px;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* outer neon border */
+.cyber-modal-border-outer {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #00f2ff;
+  box-shadow:
+    0 0 20px rgba(0, 242, 255, 0.45),
+    inset 0 0 30px rgba(0, 242, 255, 0.04);
+  pointer-events: none;
+}
+
+/* inner thin border */
+.cyber-modal-border-inner {
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(0, 242, 255, 0.35);
+  pointer-events: none;
+}
+
+/* L-shaped corner brackets */
+.cyber-modal-bracket {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cyber-modal-bracket--tl {
+  top: -1px;
+  left: -1px;
+  border-top: 3px solid #00f2ff;
+  border-left: 3px solid #00f2ff;
+  box-shadow: -2px -2px 8px rgba(0, 242, 255, 0.6);
+}
+
+.cyber-modal-bracket--br {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 3px solid #00f2ff;
+  border-right: 3px solid #00f2ff;
+  box-shadow: 2px 2px 8px rgba(0, 242, 255, 0.6);
+}
+
+/* ---- Close button ---- */
+.cyber-modal-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e8001c;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 0 14px rgba(255, 0, 0, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 0;
+}
+
+.cyber-modal-close:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 22px rgba(255, 0, 0, 0.9);
+}
+
+/* ---- Header ---- */
+.cyber-modal-header {
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.cyber-modal-title {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.cyber-modal-title-text {
+  background: linear-gradient(90deg, #00f2ff 0%, #c800ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.5));
+}
+
+.cyber-modal-title-underscore {
+  color: #00f2ff;
+  -webkit-text-fill-color: #00f2ff;
+  text-shadow: 0 0 8px rgba(0, 242, 255, 0.6);
+}
+
+.cyber-modal-title-underscore:last-child {
+  color: #c800ff;
+  -webkit-text-fill-color: #c800ff;
+  text-shadow: 0 0 8px rgba(200, 0, 255, 0.6);
+}
+
+.cyber-modal-subtitle {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* ---- Body ---- */
+.cyber-modal-body {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Input field ---- */
+.cyber-input-group {
+  margin-bottom: 14px;
+}
+
+.cyber-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid #00f2ff;
+  background: rgba(0, 20, 35, 0.6);
+  box-shadow: 0 0 8px rgba(0, 242, 255, 0.15);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.cyber-input-wrap:focus-within {
+  border-color: #00f2ff;
+  box-shadow: 0 0 16px rgba(0, 242, 255, 0.4);
+}
+
+.cyber-input-icon {
+  flex-shrink: 0;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00f2ff;
+}
+
+.cyber-input-icon svg {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 0 4px rgba(0, 242, 255, 0.6));
+}
+
+.cyber-input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 13px 14px 13px 0 !important;
+  color: #00f2ff !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  height: auto !important;
+  border-radius: 0 !important;
+}
+
+.cyber-input::placeholder {
+  color: rgba(0, 242, 255, 0.55) !important;
+  font-size: 14px !important;
+}
+
+/* antd override inside cyber modal */
+.cyber-modal-body .ant-input,
+.cyber-modal-body .ant-input-affix-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #00f2ff !important;
+  padding: 13px 14px 13px 0 !important;
+  height: auto !important;
+  font-size: 14px !important;
+}
+
+.cyber-modal-body .ant-input-affix-wrapper .ant-input {
+  padding: 0 !important;
+}
+
+.cyber-modal-body .ant-form-item {
+  margin-bottom: 0 !important;
+}
+
+.cyber-modal-body .ant-form-item-explain-error {
+  color: #ff6b6b !important;
+  font-size: 11px !important;
+  margin-top: 4px !important;
+  margin-bottom: 6px !important;
+  text-align: left;
+  padding-left: 44px;
+}
+
+/* ---- Submit button ---- */
+.cyber-submit-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #00f2ff 0%, #c800ff 100%);
+  color: #000;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.35), 0 0 20px rgba(200, 0, 255, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+
+.cyber-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(0, 242, 255, 0.5), 0 0 28px rgba(200, 0, 255, 0.4);
+}
+
+.cyber-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* ---- Action buttons row (logout) ---- */
+.cyber-action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.cyber-btn-secondary {
+  flex: 1;
+  padding: 13px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  font-family: inherit;
+}
+
+.cyber-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.cyber-btn-danger {
+  flex: 1;
+  padding: 13px 12px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #00f2ff 0%, #c800ff 100%);
+  color: #000;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(0, 242, 255, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+
+.cyber-btn-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 24px rgba(0, 242, 255, 0.45);
+}
+
+/* ---- Footer link ---- */
+.cyber-modal-footer {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.cyber-modal-footer-link {
+  color: #00f2ff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: text-shadow 0.2s ease;
+}
+
+.cyber-modal-footer-link:hover {
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.8);
+}
+
+/* ---- Logout message ---- */
+.cyber-modal-message {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+  .cyber-modal-box {
+    padding: 32px 20px 24px;
+  }
+
+  .cyber-modal-title {
+    font-size: 18px;
+  }
+
+  .cyber-modal-subtitle {
+    font-size: 10px;
+  }
+
+  .cyber-action-row {
+    flex-direction: column;
+  }
+}

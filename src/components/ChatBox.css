@@ -1,0 +1,190 @@
+.chatbox-root{
+    display: flex;
+	width: 500px;
+	max-width: 500px;
+	height: 328px; 
+	max-height: calc(100% - 48px);
+	background-image: url('../../public/assets/khungchat.gif');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: #fff;
+	border-radius: 8px;
+	padding: 6px;
+	flex-direction: column;
+	box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+	position: relative; /* in-flow */
+	margin: 0; /* no margin since it's in flex container */
+	z-index: 10;
+}
+.chatbox-header{
+	font-weight: 800;
+	padding: 6px 10px;
+	text-align: center;
+	font-size: 13px;
+	color: #dbe9ff;
+	margin-bottom: 6px;
+	letter-spacing: 1px;
+}
+.chatbox-list{
+	flex: 1;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	/* smaller message area to match compact layout */
+	max-height: 220px;
+	/* allow scroll to work correctly inside a fixed-height flex container */
+	min-height: 0;
+	padding: 6px 8px 6px 6px;
+	display:flex;
+	flex-direction: column;
+	gap: 6px;
+	align-self: flex-start;
+	/* Force scrollbar to right side */
+	scrollbar-width: thin;
+	scrollbar-color: rgba(0,174,239,0.6) rgba(0,0,0,0.2);
+	width: 100%;
+	box-sizing: border-box;
+}
+.chat-msg{
+	padding: 0px 10px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	text-align: left;
+	margin: 0;
+	gap: 10px;
+	box-sizing: border-box;
+}
+.chat-content{flex: 1; min-width: 0;}
+.chat-user{
+	font-size:14px;
+	color:#ffd84d;
+	font-weight:700;
+	margin-bottom:4px;
+	margin-left: 1.25rem;
+	min-width: 100px;
+	max-width: 100px;
+	flex-shrink: 0;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.chat-text{
+	font-size:16px;
+	color:#fff;
+	word-wrap: break-word;
+	word-break: break-word;
+	line-height: 1.4;
+	white-space: pre-wrap;
+}
+.chatbox-input{display:flex;gap:8px;padding-top:20px;flex:0 0 auto;align-items:center;}
+.chatbox-input input{max-height: 30px;border:1px solid #fff;flex:1;padding:10px 12px;border-radius:6px;background:rgba(0,0,0,0.45);color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chatbox-input input::-ms-clear{display:none}
+.chat-send{padding:10px 14px;border-radius:6px;background:#f0c400;border:none;color:#111;font-weight:800;flex:0 0 auto}
+
+/* Custom scrollbar for chatbox-list */
+.chatbox-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chatbox-list::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+
+.chatbox-list::-webkit-scrollbar-thumb {
+    background: rgba(0,174,239,0.6);
+    border-radius: 4px;
+}
+
+.chatbox-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,174,239,0.8);
+}
+
+@media (max-width: 768px){
+	/* Tablet and mobile: stack vertically and adjust sizes */
+	.chatbox-root{
+		width: 100%;
+		max-width: none;
+		height: 250px;
+		margin: 12px 0;
+	}
+	.chatbox-list{
+		max-height: 180px;
+		min-height: 0;
+	}
+}
+
+@media (max-width: 430px){
+	/* Mobile: keep original compact behaviour for small screens */
+	.chatbox-root{
+		display:flex;
+		bottom:12px;
+		transform:none;
+		max-height:none;
+		margin: 0;
+	}
+	.chatbox-list{
+		margin-top: 52px;
+        max-height: 124px;
+		min-height:0
+	}
+
+	.chatbox-input{
+		margin-left: 80px;
+		max-height: 10px;
+		max-width: 260px;
+	}
+	.chat-send {
+		padding: 3px 6px;
+	}
+}
+
+
+@media (min-width: 1536px) {
+	.chatbox-root {
+		width: 500px !important;
+		max-width: 500px !important;
+		height: 320px !important;
+	}
+	
+	.chatbox-list {
+		max-height: 136px !important;
+		margin-top: 3.5rem;
+	}
+	.chat-msg{
+		margin-left: 1rem;
+	}
+
+	.chat-user {
+		font-size: 16px !important;
+		min-width: 100px !important;
+		max-width: 100px !important;
+	}
+	
+	.chat-text {
+		font-size: 16px !important;
+	}
+	
+	.chatbox-input {
+		padding-top: 0.65rem;
+	}
+
+	.chatbox-input input {
+		max-height: 32px !important;
+		font-size: 16px !important;
+		margin-left: 4rem;
+        max-width: 20rem;
+	}
+	
+	.chat-send {
+		height: 32px !important;
+		font-size: 14px !important;
+		padding: 0px 12px;
+	}
+}
