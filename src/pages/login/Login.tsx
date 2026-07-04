@@ -10,6 +10,7 @@ import CyberModal, {
   CyberModalFooter,
 } from "../../components/CyberModal/CyberModal";
 import { IconUser, IconLock } from "../../components/CyberModal/CyberIcons";
+import SiteBrand from "../../components/SiteBrand";
 
 const Login: React.FC = () => {
   const Cookies = require("js-cookie");
@@ -384,14 +385,9 @@ const Login: React.FC = () => {
           ></canvas>
         </div>
         <div className="logo">
-          <img
-            src="/assets/logo-login.png"
-            width={300}
-            height={600}
-            alt="logo"
-            className="logo_main"
-            onError={(ev) => { (ev.currentTarget as HTMLImageElement).style.display = 'none'; }}
-          />
+          <div className="logo_main flex justify-center py-6">
+            <SiteBrand />
+          </div>
           <div className="wrapper-content">
             <div className="group-btn">
               <div className="top-row">

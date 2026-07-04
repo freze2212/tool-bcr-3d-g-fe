@@ -9,6 +9,7 @@ import ModalConfirmLogout from "../../components/ModalConfirmLogout";
 import styles from './style.module.css';
 import { getFormattedTime } from "../../utilities/axios.utilities";
 import ProgressBar from '../NH/components/ProgressBar';
+import SiteBrand from '../../components/SiteBrand';
 
 interface TableItem {
   time?: string;
@@ -284,7 +285,7 @@ const Slot = () => {
       {/* Centered Logo */}
       <div className="w-full h-[80px] flex justify-center items-center">
         <a className="navbar-brand" href="/">
-          <img className="!w-[260px]" src="/assets/logo.png" alt="logo" />
+          <SiteBrand className="!w-auto" />
         </a>
       </div>
       <div className={`container-fluid lobby-bg position-relative mx-auto mb-5 max-w-screen-xl`}>

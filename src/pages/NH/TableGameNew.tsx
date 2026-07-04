@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import styles from "./style.module.css";
 import "../login/css/main.login.css";
 import Swal from "sweetalert2";
+import SiteBrand from "../../components/SiteBrand";
 
 const TableGameNew = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const TableGameNew = () => {
   const avatar: string = localStorage.getItem("user_avatar") || "/assets/user-icon.gif";
   const hallAvatar: string = (localStorage.getItem("selected_hall_avatar") || localStorage.getItem("hallAvatar") || "/assets/casino/PG.png") as string;
   const gameImg: string = (localStorage.getItem("title_img") || "/assets/phantichchitiet.gif") as string;
-  const [gameTitle] = useState<string>("MAO MAY MẮN");
+  const gameTitle = "MAO MAY MẮN";
   const winPercent = parseInt(localStorage.getItem("win_percent") || "97");
 
   // Spin system states
@@ -741,7 +742,7 @@ const TableGameNew = () => {
           {/* Back button aligned left */}
           {/* Centered logo */}
           <div className=" flex justify-center">
-            <img src="/assets/logo.png" alt="logo" className="h-12" />
+            <SiteBrand />
           </div>
           <div className="flex justify-start ml-5 ">
             <button onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/NH'))} className="w-12 h-10 mt-2" aria-label="Quay lại">
@@ -881,8 +882,8 @@ const TableGameNew = () => {
                 {/* center game image - circular */}
                 <img src={gameImg} alt="game" className="relative z-[1] w-28 h-28 rounded-full object-cover border-2 border-white/70 shadow-[0_0_12px_rgba(0,0,0,.6)]" />
                 {/* title pill */}
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-72 h-[4.5rem] rounded-full flex items-center justify-center">
-                  <span className="text-white text-xm font-extrabold tracking-wide drop-shadow">{gameTitle}</span>
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 min-w-[12rem] px-4 py-2 rounded-full flex items-center justify-center bg-black/75 border border-cyan-400/50">
+                  <span className="text-cyan-300 text-sm font-extrabold tracking-widest uppercase drop-shadow">{gameTitle}</span>
                 </div>
               </div>
             </section>
@@ -996,8 +997,8 @@ const TableGameNew = () => {
                 {/* center game image - circular */}
                 <img src={gameImg} alt="game" className="relative z-[1] w-32 h-32 rounded-full object-cover border-2 border-white/70 shadow-[0_0_12px_rgba(0,0,0,.6)]" />
                 {/* title pill */}
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-80 h-[5rem] rounded-full flex items-center justify-center">
-                  <span className="text-white text-lg font-extrabold tracking-wide drop-shadow">{gameTitle}</span>
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 min-w-[14rem] px-5 py-2 rounded-full flex items-center justify-center bg-black/75 border border-cyan-400/50">
+                  <span className="text-cyan-300 text-lg font-extrabold tracking-widest uppercase drop-shadow">{gameTitle}</span>
                 </div>
               </div>
 

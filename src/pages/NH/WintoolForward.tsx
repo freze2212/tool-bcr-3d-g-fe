@@ -1,5 +1,6 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SiteBrand from "../../components/SiteBrand";
 
 const percentInRange = () => {
   // Random 12-30%
@@ -86,19 +87,7 @@ const WintoolForward: React.FC = () => {
           />
         </button>
 
-        {/* Logo */}
-        <img
-          src="/assets/logo.png"
-          alt="logo"
-          style={{
-            width: isMobile ? "68%" : "320px", // Logo to lên xíu (260px → 320px)
-            height: "auto",
-            filter: "drop-shadow(0 0 10px rgba(0,0,0,0.6))",
-          }}
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = "/assets/logo-2.png";
-          }}
-        />
+        <SiteBrand />
       </div>
 
       {/* Center avatar (game icon from table page) */}

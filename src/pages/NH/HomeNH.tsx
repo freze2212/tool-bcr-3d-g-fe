@@ -6,6 +6,7 @@ import ModalConfirmLogout from "../../components/ModalConfirmLogout";
 import ProgressBar from "./components/ProgressBar";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SiteBrand from "../../components/SiteBrand";
 
 interface TableItem {
   time?: string;
@@ -417,7 +418,7 @@ const HomeNH = () => {
     <div className="container-fluid lobby-bg position-relative mx-auto mb-5 max-w-screen-xl" style={{ position: 'relative' }}>
       {/* Logo căn giữa */}
       <div className="w-full h-[80px] flex justify-center items-center">
-        <img className="!w-[260px]" src="/assets/logo.png" alt="logo" />
+        <SiteBrand className="!w-auto" />
       </div>
       
       {/* Desktop / tablet layout */}
