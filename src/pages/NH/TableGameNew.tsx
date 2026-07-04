@@ -21,7 +21,7 @@ const TableGameNew = () => {
   const avatar: string = localStorage.getItem("user_avatar") || "/assets/user-icon.gif";
   const hallAvatar: string = (localStorage.getItem("selected_hall_avatar") || localStorage.getItem("hallAvatar") || "/assets/casino/PG.png") as string;
   const gameImg: string = (localStorage.getItem("title_img") || "/assets/phantichchitiet.gif") as string;
-  const [gameTitle, setGameTitle] = useState<string>("MA THUẬT GHÉP");
+  const [gameTitle] = useState<string>("MAO MAY MẮN");
   const winPercent = parseInt(localStorage.getItem("win_percent") || "97");
 
   // Spin system states
@@ -115,44 +115,6 @@ const TableGameNew = () => {
     
     // Random member count mỗi khi component mount (refresh trang)
     setRandomMemberCount(Math.floor(Math.random() * 201) + 300);
-  }, []);
-
-  // Set game title from localStorage (simple approach like TableGame.tsx)
-  useEffect(() => {
-    console.log('=== DEBUG GAME TITLE ===');
-    
-    // Get title from localStorage that was set from previous page (Slot)
-    const titleFromStorage = localStorage.getItem('title_text');
-    console.log('title_text from localStorage:', titleFromStorage);
-    
-    if (titleFromStorage) {
-      setGameTitle(titleFromStorage);
-      console.log('Game title set from localStorage:', titleFromStorage);
-      return;
-    }
-
-    console.log('No title_text found, checking hall info...');
-    
-    // Fallback to hall info if no title_text
-    const savedHallInfo = localStorage.getItem('selected_hall_info');
-    console.log('selected_hall_info from localStorage:', savedHallInfo);
-    
-    if (savedHallInfo) {
-      try {
-        const hallInfo = JSON.parse(savedHallInfo);
-        console.log('parsed hallInfo:', hallInfo);
-        if (hallInfo.name) {
-          setGameTitle(hallInfo.name);
-          console.log('Game title set from hall info (fallback):', hallInfo.name);
-        }
-      } catch (e) {
-        console.error('Error parsing hall info:', e);
-      }
-    } else {
-      console.log('No hall info found either');
-    }
-    
-    console.log('=== END DEBUG ===');
   }, []);
 
   // Loading frame for both mobile and PC
@@ -395,50 +357,49 @@ const TableGameNew = () => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  // Weighted random function
-  const weightedRandom = (min: number, max: number, bias: number, influence: number) => {
-    const rnd = Math.random() * (max - min) + min;
-    const mix = Math.random() * influence;
-    return Math.floor(rnd * (1 - mix) + bias * mix);
+  const makeMinBet = (target: number, lowFactor: number, highFactor: number) => {
+    const min = Math.max(1, Math.round(target * lowFactor));
+    const max = Math.max(min + 1, Math.round(target * highFactor));
+    return randomInRange(min, max);
   };
 
-  // Generate spin options based on target points
+  // Generate spin options based on target points (sub-linear scale, keep rounds low)
   const generateSpinOptions = (target: number) => {
-    const base = Math.max(target, 3);
+    const core = Math.max(4, Math.round(Math.sqrt(target) * 0.55 + 3));
 
-    function makeOptions() {
+    function makeOptions(extraSpins = 0) {
       return [
         {
           label: "Ultra Safe",
-          spins: weightedRandom(base * 1.5, base * 2, base * 1.8, 0.7),
-          min: weightedRandom(1, base * 0.2, base * 0.1, 0.8)
+          spins: randomInRange(Math.max(2, core - 3), Math.max(3, core - 1)) + extraSpins,
+          min: makeMinBet(target, 0.008, 0.025),
         },
         {
           label: "Safe",
-          spins: weightedRandom(base * 1.2, base * 1.5, base * 1.35, 0.6),
-          min: weightedRandom(base * 0.15, base * 0.3, base * 0.2, 0.7)
+          spins: randomInRange(Math.max(3, core - 2), core) + extraSpins,
+          min: makeMinBet(target, 0.015, 0.04),
         },
         {
           label: "Balanced",
-          spins: weightedRandom(base * 0.9, base * 1.2, base * 1.05, 0.5),
-          min: weightedRandom(base * 0.3, base * 0.6, base * 0.45, 0.6)
+          spins: randomInRange(core, core + 2) + extraSpins,
+          min: makeMinBet(target, 0.03, 0.06),
         },
         {
           label: "Aggressive",
-          spins: weightedRandom(base * 0.6, base * 0.9, base * 0.75, 0.5),
-          min: weightedRandom(base * 0.5, base * 0.8, base * 0.65, 0.6)
+          spins: randomInRange(core + 1, core + 4) + extraSpins,
+          min: makeMinBet(target, 0.05, 0.08),
         },
         {
           label: "All-in",
-          spins: weightedRandom(base * 0.3, base * 0.6, base * 0.45, 0.4),
-          min: weightedRandom(base * 0.7, base * 1, base * 0.85, 0.5)
-        }
+          spins: randomInRange(core + 3, core + 7) + extraSpins,
+          min: makeMinBet(target, 0.07, 0.12),
+        },
       ];
     }
 
     return {
       manual: makeOptions(),
-      auto: makeOptions()
+      auto: makeOptions(randomInRange(2, 5)),
     };
   };
 
@@ -507,7 +468,7 @@ const TableGameNew = () => {
     setShowGifButton(false);
     
     // Sử dụng randomInRange cho số vòng quay
-    const randomRounds = randomInRange(50, 80); // 50-80 vòng
+    const randomRounds = randomInRange(10, 18);
     // Sử dụng randomInRange cho thời gian countdown (10-15 phút)
     const totalSeconds = randomInRange(10 * 60, 15 * 60); // 10-15 phút
     
